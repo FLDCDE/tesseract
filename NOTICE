@@ -1,0 +1,77 @@
+TesseractLib
+Copyright 2025 TesseractLib Contributors
+
+This software contains code derived from and/or depends on:
+
+===============================================================================
+Runtime and Compile-time Dependencies
+===============================================================================
+
+- Google Guava (version 33.4.6-jre)
+  Apache License 2.0
+  Copyright (C) Google Inc.
+  https://github.com/google/guava
+
+- Apache Commons Text (version 1.12.0)
+  Apache License 2.0
+  Copyright (C) The Apache Software Foundation
+  https://commons.apache.org/proper/commons-text/
+
+- Jackson Databind (version 2.13.4)
+  Apache License 2.0
+  Copyright (C) FasterXML, LLC
+  https://github.com/FasterXML/jackson-databind
+
+- Jackson Datatype JSR310 (version 2.13.4)
+  Apache License 2.0
+  Copyright (C) FasterXML, LLC
+  https://github.com/FasterXML/jackson-modules-java8
+
+- Jackson Datatype Guava (version 2.13.4)
+  Apache License 2.0
+  Copyright (C) FasterXML, LLC
+  https://github.com/FasterXML/jackson-datatypes-collections
+
+===============================================================================
+Build-time Dependencies (compile-only, not distributed)
+===============================================================================
+
+- Immutables Value (version 2.9.2)
+  Apache License 2.0
+  Copyright (C) Immutables Authors and Contributors
+  https://github.com/immutables/immutables
+
+- Project Lombok (version 1.18.42)
+  MIT License
+  Copyright (C) Project Lombok
+  https://projectlombok.org
+
+===============================================================================
+Test Dependencies (not distributed)
+===============================================================================
+
+- JUnit Jupiter API (version 5.9.1)
+  Eclipse Public License 2.0
+  Copyright (C) JUnit Team
+  https://junit.org/junit5/
+
+- JUnit Jupiter Params (version 5.9.3)
+  Eclipse Public License 2.0
+  Copyright (C) JUnit Team
+  https://junit.org/junit5/
+
+- AssertJ Core (version 3.27.3)
+  Apache License 2.0
+  Copyright (C) Joel Costigliola and AssertJ contributors
+  https://assertj.github.io/doc/
+
+- Mockito Core (version 5.3.1)
+  MIT License
+  Copyright (C) Mockito contributors
+  https://site.mockito.org/
+
+- Guava Testlib (version 33.4.6-jre)
+  Apache License 2.0
+  Copyright (C) Google Inc.
+  https://github.com/google/guava
+

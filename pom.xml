@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>tesseract-parent</artifactId>
+  <groupId>com.fieldcode</groupId>
+  <version>0.1.0-SNAPSHOT</version>
+
+  <licenses>
+    <license>
+      <name>The Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <modules>
+    <module>tesseract-core</module>
+    <module>tesseract-api</module>
+    <module>tesseract-jackson-datatype</module>
+  </modules>
+
+  <packaging>pom</packaging>
+
+  <properties>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+
+    <guava.version>33.4.6-jre</guava.version>
+    <lombok.version>1.18.42</lombok.version>
+    <jackson.version>2.13.4</jackson.version>
+    <immutables.version>2.9.2</immutables.version>
+    <mockito-core.version>5.3.1</mockito-core.version>
+    <assertj-core.version>3.27.3</assertj-core.version>
+    <junit-jupiter-api.version>5.9.1</junit-jupiter-api.version>
+    <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+    <junit-jupiter-params.version>5.9.3</junit-jupiter-params.version>
+    <maven-surefire-plugin.version>3.0.0-M8</maven-surefire-plugin.version>
+    <apache-commons-text.version>1.12.0</apache-commons-text.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+
+      <dependency>
+        <artifactId>jackson-bom</artifactId>
+        <groupId>com.fasterxml.jackson</groupId>
+        <scope>import</scope>
+        <type>pom</type>
+        <version>${jackson.version}</version>
+      </dependency>
+
+      <dependency>
+        <artifactId>tesseract-core</artifactId>
+        <groupId>com.fieldcode</groupId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <artifactId>tesseract-api</artifactId>
+        <groupId>com.fieldcode</groupId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <artifactId>tesseract-jackson-datatype</artifactId>
+        <groupId>com.fieldcode</groupId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <artifactId>bom</artifactId>
+        <groupId>org.immutables</groupId>
+        <scope>import</scope>
+        <type>pom</type>
+        <version>${immutables.version}</version>
+      </dependency>
+
+      <dependency>
+        <artifactId>guava</artifactId>
+        <groupId>com.google.guava</groupId>
+        <version>${guava.version}</version>
+      </dependency>
+
+      <dependency>
+        <artifactId>guava-testlib</artifactId>
+        <groupId>com.google.guava</groupId>
+        <scope>test</scope>
+        <version>${guava.version}</version>
+      </dependency>
+
+      <dependency>
+        <artifactId>lombok</artifactId>
+        <groupId>org.projectlombok</groupId>
+        <optional>false</optional>
+        <scope>provided</scope>
+        <version>${lombok.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-text</artifactId>
+        <version>${apache-commons-text.version}</version>
+      </dependency>
+
+      <dependency>
+        <artifactId>assertj-core</artifactId>
+        <groupId>org.assertj</groupId>
+        <scope>test</scope>
+        <version>${assertj-core.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>${junit-jupiter-api.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <artifactId>junit-jupiter-params</artifactId>
+        <groupId>org.junit.jupiter</groupId>
+        <version>${junit-jupiter-params.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${mockito-core.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven-surefire-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>${maven-source-plugin.version}</version>
+          <executions>
+            <execution>
+              <id>attach-sources</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+</project>
