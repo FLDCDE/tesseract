@@ -1,6 +1,8 @@
 package com.fieldcode.tesseract;
 
 /**
+ * Represents one Allen temporal relation between interval {@code A} and interval {@code B}.
+ *
  * <pre>
  *
  *    -------------------------------------------------------------
