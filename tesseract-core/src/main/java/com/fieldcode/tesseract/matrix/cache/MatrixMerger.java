@@ -15,7 +15,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.stream.Collectors.toList;
 
 
-class MatrixMerger {
+public class MatrixMerger {
 
   private final Collection<PartialDirectionMatrix> matrices;
   private final MultiKeyLongMatrix<Location> distances;
@@ -49,11 +49,11 @@ class MatrixMerger {
         .collect(TreeSet::new, TreeSet::add, TreeSet::addAll);
   }
 
-  static PartialDirectionMatrix merge(Collection<PartialDirectionMatrix> matrices) {
+  public static PartialDirectionMatrix merge(Collection<PartialDirectionMatrix> matrices) {
     return new MatrixMerger(matrices).merge();
   }
 
-  static PartialDirectionMatrix merge(DirectionMatrix original, Stream<PartialDirectionMatrix> fetched) {
+  public static PartialDirectionMatrix merge(DirectionMatrix original, Stream<PartialDirectionMatrix> fetched) {
     return merge(concat(fetched, original));
   }
 

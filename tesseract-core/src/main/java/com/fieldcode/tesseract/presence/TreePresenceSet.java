@@ -18,7 +18,6 @@ import com.fieldcode.tesseract.utils.iterator.Iterators;
 import java.time.OffsetDateTime;
 import java.util.Map.Entry;
 import java.util.NavigableMap;
-import java.util.Objects;
 import java.util.TreeMap;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
@@ -197,7 +196,7 @@ class TreePresenceSet implements PresenceSet {
 
   @Override
   public int hashCode() {
-    return Objects.hash(map);
+    return presences().set().hashCode();
   }
 
   @Override
@@ -205,8 +204,8 @@ class TreePresenceSet implements PresenceSet {
     if (this == o) {return true;}
     if (o == null) {return false;}
 
-    if (o instanceof PresenceSet) {
-      var otherPresences = ((PresenceSet) o).presences().set();
+    if (o instanceof PresenceCollection) {
+      var otherPresences = ((PresenceCollection) o).presences().set();
       var selfPresences = map.values();
       return selfPresences.containsAll(otherPresences) && otherPresences.containsAll(selfPresences);
     }

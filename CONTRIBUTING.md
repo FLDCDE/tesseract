@@ -277,6 +277,7 @@ JavaDoc requirements:
 TesseractLib uses **JUnit 5** with **AssertJ** for assertions. Mockito is available but should be used sparingly — reach for it only when a collaborator genuinely needs mocking; prefer real, shared test fixtures over hand-rolled mocks when a module already provides them.
 
 - **Always assert with AssertJ** (`assertThat(...)`) — never JUnit's `assertEquals`/`assertTrue`.
+- **Always format chained AssertJ calls across multiple lines** — `assertThat(x)` on its own line, each chained method (`.isEqualTo(...)`, `.isSameAs(...)`, etc.) on the following line(s) — even a single trailing call, regardless of how short the chain is.
 
 #### Test Structure
 
@@ -299,8 +300,10 @@ void schedule_WithFloatingBreaks_Success() {
   var result = scheduler.schedule(task, interval, breaks);
 
   // Assert: scheduling succeeds
-  assertThat(result).isPresent();
-  assertThat(result.get().isSuccessful()).isTrue();
+  assertThat(result)
+      .isPresent();
+  assertThat(result.get().isSuccessful())
+      .isTrue();
 }
 ```
 

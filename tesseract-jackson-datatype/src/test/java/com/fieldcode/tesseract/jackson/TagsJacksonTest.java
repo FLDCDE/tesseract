@@ -18,14 +18,17 @@ class TagsJacksonTest {
   @Test
   @DisplayName("Should correctly serialize and deserialize a set of tags")
   void clone_Tag_Success() {
+    // Arrange: a set of three tags, two carrying values
     var tag1 = Tags.tag("tag1");
     var tag2 = Tags.tag("tag2", "value2");
     var tag3 = Tags.tag("tag3", "value3");
 
     var tags = Set.of(tag1, tag2, tag3);
 
+    // Act: serialize and deserialize the set of tags
     var cloned = Jsons.clone(tags, new TypeReference<Set<Tag>>() {});
 
+    // Assert: the round-tripped set equals the original
     assertThat(cloned)
         .isEqualTo(tags);
   }
@@ -34,14 +37,17 @@ class TagsJacksonTest {
   @DisplayName("Should correctly serialize and deserialize a TagHolder with multiple tags")
   void clone_TagHolder_Success() {
 
+    // Arrange: a TagHolder built from three tags, two carrying values
     var tags = Tags.builder()
         .tag("tag1")
         .tag("tag2", "value2")
         .tag("tag3", "value3")
         .build();
 
+    // Act: serialize and deserialize the TagHolder
     var cloned = Jsons.clone(tags, TagHolder.class);
 
+    // Assert: the round-tripped TagHolder equals the original
     assertThat(cloned)
         .isEqualTo(tags);
   }

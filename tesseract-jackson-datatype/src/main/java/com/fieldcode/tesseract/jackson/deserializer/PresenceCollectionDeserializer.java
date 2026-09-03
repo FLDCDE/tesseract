@@ -19,8 +19,10 @@ public class PresenceCollectionDeserializer extends JsonDeserializer<PresenceCol
     JsonNode node = parser.readValueAsTree();
 
     var iterator = node.elements();
+    if (!iterator.hasNext()) {
+      return PresenceSets.empty();
+    }
 
-    //noinspection UnstableApiUsage
     var presences = Streams
         .stream(iterator)
         .map(n -> presence(parser, n));

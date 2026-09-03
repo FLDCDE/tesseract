@@ -1,5 +1,6 @@
 package com.fieldcode.tesseract.jackson;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.fieldcode.tesseract.PresenceSet;
@@ -11,10 +12,13 @@ import com.fieldcode.tesseract.tag.Tags;
 import static com.fieldcode.tesseract.location.Locations.location;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@DisplayName("PresenceSetJacksonModule")
 class PresenceSetJacksonModuleTest extends TimeTestSupport {
 
   @Test
+  @DisplayName("should round-trip a presence set with mixed locations and tags")
   void clone_Mixed_Success() {
+    // Arrange: a presence set with two presences, one carrying tags
     var tags = Tags.builder()
         .tag("tag1")
         .tag("tag2", "value2")
@@ -26,8 +30,10 @@ class PresenceSetJacksonModuleTest extends TimeTestSupport {
         presence(15, -15, 15)
     );
 
+    // Act: serialize and deserialize it back
     var cloned = Jsons.clone(presenceSet, PresenceSet.class);
 
+    // Assert: the round-tripped presence set equals the original
     assertThat(cloned)
         .isEqualTo(presenceSet);
   }
