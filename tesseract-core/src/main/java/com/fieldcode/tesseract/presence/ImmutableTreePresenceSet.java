@@ -7,6 +7,7 @@ import com.fieldcode.tesseract.Location;
 import com.fieldcode.tesseract.Moment;
 import com.fieldcode.tesseract.Movement;
 import com.fieldcode.tesseract.Presence;
+import com.fieldcode.tesseract.PresenceCollection;
 import com.fieldcode.tesseract.PresenceSet;
 import com.fieldcode.tesseract.QueryDirection;
 import com.fieldcode.tesseract.location.Locations;
@@ -18,7 +19,6 @@ import com.google.common.collect.Streams;
 import java.time.OffsetDateTime;
 import java.util.Map.Entry;
 import java.util.NavigableMap;
-import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
@@ -210,7 +210,7 @@ class ImmutableTreePresenceSet implements PresenceSet {
 
   @Override
   public int hashCode() {
-    return Objects.hash(map);
+    return presences().set().hashCode();
   }
 
   @Override
@@ -218,8 +218,8 @@ class ImmutableTreePresenceSet implements PresenceSet {
     if (this == o) {return true;}
     if (o == null) {return false;}
 
-    if (o instanceof PresenceSet) {
-      var presences = ((PresenceSet) o).presences().set();
+    if (o instanceof PresenceCollection) {
+      var presences = ((PresenceCollection) o).presences().set();
       return map.values().containsAll(presences) && presences.containsAll(map.values());
     }
     return false;

@@ -1,5 +1,6 @@
 package com.fieldcode.tesseract.jackson.timeline;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.fieldcode.tesseract.Taggable.TagHolder;
@@ -12,6 +13,7 @@ import com.fieldcode.tesseract.timeline.TimelineBuilder;
 import static com.fieldcode.tesseract.timeline.TimelineEvents.event;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@DisplayName("Timeline Jackson serialization")
 class TimelineJacksonTest extends TimeTestSupport {
 
   public static final String STRICT_LAYER = "strict";
@@ -29,7 +31,9 @@ class TimelineJacksonTest extends TimeTestSupport {
   }
 
   @Test
+  @DisplayName("should round-trip a timeline with strict, merge, overlap, presence and interval layers")
   void clone_Timeline_Success() {
+    // Arrange: a timeline with five layers, each populated with tagged events, presences or intervals
     var timeline = TimelineBuilder.of()
         .strict(STRICT_LAYER, tags("strict-layer"))
         .merge(MERGE_LAYER, tags("merge-layer"))
@@ -50,11 +54,15 @@ class TimelineJacksonTest extends TimeTestSupport {
         .put(INTERVAL_LAYER, interval(0, 8))
         .put(INTERVAL_LAYER, interval(12, 24));
 
+    // Act: serialize the timeline, clone it via a round-trip, and serialize the clone
     var originalJson = Jsons.stringify(timeline, true);
 
     var cloned = Jsons.clone(timeline, Timeline.class);
     var clonedJson = Jsons.stringify(cloned, true);
-    assertThat(clonedJson).isEqualTo(originalJson);
+
+    // Assert: the cloned timeline's JSON matches the original's JSON
+    assertThat(clonedJson)
+        .isEqualTo(originalJson);
   }
 
 }
