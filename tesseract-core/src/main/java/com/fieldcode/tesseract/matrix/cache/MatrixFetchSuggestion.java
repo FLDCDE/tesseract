@@ -19,7 +19,7 @@ enum MatrixFetchSuggestion implements Comparable<MatrixFetchSuggestion> {
   FULL(2) {
     @Override
     public int selectCost(CandidateDirectionMatrix cost) {
-      return 0;
+      return cost.getFullFetchCost();
     }
   };
 

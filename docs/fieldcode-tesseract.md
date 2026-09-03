@@ -285,6 +285,7 @@ Explore feature-specific guides with examples:
 - [Spatial Primitives](spatial-primitives.md) — Locations, distances, directions, and movements
 - [Interval Collection](interval-collection.md) — Efficient interval storage and querying
 - [Presence Collection](presence-collection.md) — Spatio-temporal data tracking and querying
+- [Direction Matrix Cache](matrix-cache.md) — Caching and reusing direction matrix computations
 - [Helper Notation](helper-notation.md) — Test helpers and documentation shortcuts
 
 ## License
