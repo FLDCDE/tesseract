@@ -89,8 +89,6 @@ TesseractLib/
 ├── tesseract-api/          # Core interfaces and contracts
 ├── tesseract-core/         # Core implementations
 ├── tesseract-jackson-datatype/  # Jackson serialization support
-├── tesseract-scheduler/    # Scheduling utilities
-├── tesseract-test-utils/   # Testing utilities
 └── docs/                   # Documentation
 ```
 
@@ -276,25 +274,31 @@ JavaDoc requirements:
 
 ### Writing Tests
 
-TesseractLib uses **JUnit 5** with **AssertJ** for assertions.
+TesseractLib uses **JUnit 5** with **AssertJ** for assertions. Mockito is available but should be used sparingly — reach for it only when a collaborator genuinely needs mocking; prefer real, shared test fixtures over hand-rolled mocks when a module already provides them.
+
+- **Always assert with AssertJ** (`assertThat(...)`) — never JUnit's `assertEquals`/`assertTrue`.
 
 #### Test Structure
 
-Follow the AAA (Arrange-Act-Assert) pattern:
+Follow the AAA (Arrange-Act-Assert) pattern, with each part marked by a comment:
+
+- **Arrange** — set up the inputs, collaborators, and preconditions the test needs; state in the comment what's being set up
+- **Act** — invoke the single method or behavior under test; state in the comment what's being executed
+- **Assert** — verify the outcome matches what's expected; state in the comment what's being checked
 
 ```java
 @Test
-@DisplayName("Should successfully schedule task with floating breaks")
+@DisplayName("should successfully schedule task with floating breaks")
 void schedule_WithFloatingBreaks_Success() {
-  // Arrange
+  // Arrange: a 2-hour task, a 9-17 interval, and a lunch break from 12 to 13
   var task = createTask(Duration.ofHours(2));
   var interval = Intervals.interval(9, 17);
   var breaks = List.of(createBreak(12, 13));
-  
-  // Act
+
+  // Act: schedule the task within the interval, around the break
   var result = scheduler.schedule(task, interval, breaks);
-  
-  // Assert
+
+  // Assert: scheduling succeeds
   assertThat(result).isPresent();
   assertThat(result.get().isSuccessful()).isTrue();
 }
@@ -303,9 +307,8 @@ void schedule_WithFloatingBreaks_Success() {
 #### Test Guidelines
 
 - **One assertion per test** (when possible)
-- **Use descriptive test names** with `@DisplayName`
+- **Always annotate the test class and every test method with `@DisplayName`**, phrasing method-level names in "should..." style (e.g. `"should recompute after a new best solution"`)
 - **Test edge cases** and error conditions
-- **Use test helpers** from `tesseract-test-utils`
 - **Avoid test interdependencies**
 
 #### Test Naming Convention
@@ -317,21 +320,20 @@ Example: `schedule_WithOverlappingBreaks_ThrowsException`
 #### Running Tests
 
 ```bash
-# Run all tests
-mvn test
+# Root build (all modules, includes running every test)
+mvn clean install
 
-# Run tests for specific module
-mvn test -pl tesseract-core
+# Run tests for a single module (module artifactIds match their directory names)
+mvn -pl tesseract-core -am test
 
-# Run specific test class
-mvn test -Dtest=IntervalSchedulerTest
-
-# Run with coverage
-mvn clean test jacoco:report
+# Run a single test class
+mvn -pl tesseract-core -am test -Dtest=IntervalSchedulerTest
 ```
 
 ### Test Coverage
 
+- The root `coverage` Maven profile (JaCoCo `prepare-agent`) is **active by default**, not opt-in — every build above is already instrumented, no extra flag needed
+- The aggregate report lands under an aggregator module's `target/site/jacoco-aggregate/jacoco.xml` (feeds Sonar); if unsure which module aggregates, run `find . -path '*/site/jacoco-aggregate/jacoco.xml'` after a build
 - Aim for **80%+ code coverage** for new code
 - All public APIs must have tests
 - Critical business logic should have extensive tests

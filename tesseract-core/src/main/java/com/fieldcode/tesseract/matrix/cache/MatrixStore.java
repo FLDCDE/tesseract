@@ -8,6 +8,7 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.RemovalNotification;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -64,8 +65,7 @@ class MatrixStore {
   }
 
   Optional<CandidateDirectionMatrix> findByRequest(MatrixRequest request) {
-    return store.asMap()
-        .values()
+    return List.copyOf(store.asMap().values())
         .stream()
         .map(matrix -> matrix.candidate(request))
         .sorted()

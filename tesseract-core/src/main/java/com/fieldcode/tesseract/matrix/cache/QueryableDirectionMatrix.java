@@ -14,7 +14,7 @@ import static java.util.function.Predicate.not;
 import static java.util.stream.Collectors.toCollection;
 
 
-public class QueryableDirectionMatrix {
+class QueryableDirectionMatrix {
 
   private final String hash;
   private final DirectionMatrix matrix;
@@ -27,39 +27,23 @@ public class QueryableDirectionMatrix {
     this.hash = Hash.hash(matrix.getLocations());
   }
 
-  public static QueryableDirectionMatrix of(DirectionMatrix matrix) {
+  static QueryableDirectionMatrix of(DirectionMatrix matrix) {
     return new QueryableDirectionMatrix(matrix);
   }
 
-  public String getHash() {
+  String getHash() {
     return hash;
   }
 
-  public SortedSet<Location> getLocations() {
+  SortedSet<Location> getLocations() {
     return matrix.getLocations();
   }
 
-  public long[][] getDistancesInMeter() {
-    return matrix.getDistancesInMeter();
-  }
-
-  public long[][] getDurationsInSeconds() {
-    return matrix.getDurationsInSeconds();
-  }
-
-  public SortedSet<Location> getOrigins() {
-    return matrix.getLocations();
-  }
-
-  public SortedSet<Location> getDestinations() {
-    return matrix.getLocations();
-  }
-
-  public boolean contains(Location location) {
+  boolean contains(Location location) {
     return matrix.getLocations().contains(location);
   }
 
-  public SortedSet<Location> getMissingLocations(SortedSet<Location> expected) {
+  SortedSet<Location> getMissingLocations(SortedSet<Location> expected) {
     return expected.stream()
         .filter(not(this::contains))
         .collect(toCollection(TreeSet::new));
@@ -70,15 +54,15 @@ public class QueryableDirectionMatrix {
     return matrix.toString();
   }
 
-  public Stream<DirectionMatrixDimensions> getExtenderMatrices(SortedSet<Location> expected) {
+  Stream<DirectionMatrixDimensions> getExtenderMatrices(SortedSet<Location> expected) {
     return MatrixExpandCalculator.calculate(getLocations(), expected);
   }
 
-  public CandidateDirectionMatrix candidate(MatrixRequest request) {
+  CandidateDirectionMatrix candidate(MatrixRequest request) {
     return ImmutableCandidateDirectionMatrix.of(request, this);
   }
 
-  public DirectionMatrix getMatrix() {
+  DirectionMatrix getMatrix() {
     return matrix;
   }
 
